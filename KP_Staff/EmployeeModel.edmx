@@ -1,0 +1,407 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище PersonnelModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Challenger">
+          <Key>
+            <PropertyRef Name="id_c" />
+          </Key>
+          <Property Name="id_c" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="surname" Type="char" MaxLength="100" />
+          <Property Name="_name" Type="char" MaxLength="50" />
+          <Property Name="middlename" Type="char" MaxLength="100" />
+          <Property Name="education" Type="char" MaxLength="150" />
+          <Property Name="dateofbirth" Type="date" />
+          <Property Name="_address" Type="char" MaxLength="150" />
+          <Property Name="email" Type="char" MaxLength="150" />
+          <Property Name="phone" Type="char" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Position">
+          <Key>
+            <PropertyRef Name="id_p" />
+          </Key>
+          <Property Name="id_p" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_s" Type="int" />
+          <Property Name="id_c" Type="int" />
+          <Property Name="_name" Type="char" MaxLength="100" />
+          <Property Name="oklad" Type="int" />
+        </EntityType>
+        <EntityType Name="Premium">
+          <Key>
+            <PropertyRef Name="id_prem" />
+          </Key>
+          <Property Name="id_prem" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="_name" Type="char" MaxLength="60" />
+          <Property Name="sizeofpremium" Type="int" />
+        </EntityType>
+        <EntityType Name="Salary">
+          <Key>
+            <PropertyRef Name="id_sal" />
+          </Key>
+          <Property Name="id_sal" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="_name" Type="char" MaxLength="60" />
+          <Property Name="sizeofsalary" Type="int" />
+          <Property Name="premia" Type="int" />
+        </EntityType>
+        <EntityType Name="Staff">
+          <Key>
+            <PropertyRef Name="id_s" />
+          </Key>
+          <Property Name="id_s" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_sal" Type="int" />
+          <Property Name="id_prem" Type="int" />
+          <Property Name="surname" Type="char" MaxLength="100" />
+          <Property Name="_name" Type="char" MaxLength="50" />
+          <Property Name="middlename" Type="char" MaxLength="100" />
+          <Property Name="education" Type="char" MaxLength="150" />
+          <Property Name="dateofbirth" Type="date" />
+          <Property Name="dateofstartjob" Type="date" />
+          <Property Name="series_p" Type="int" />
+          <Property Name="number_p" Type="int" />
+          <Property Name="email" Type="char" MaxLength="150" />
+          <Property Name="phone" Type="char" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <Association Name="FK__Position__id_c__2F10007B">
+          <End Role="Challenger" Type="Self.Challenger" Multiplicity="0..1" />
+          <End Role="Position" Type="Self.Position" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Challenger">
+              <PropertyRef Name="id_c" />
+            </Principal>
+            <Dependent Role="Position">
+              <PropertyRef Name="id_c" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Position__id_s__300424B4">
+          <End Role="Staff" Type="Self.Staff" Multiplicity="0..1" />
+          <End Role="Position" Type="Self.Position" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Staff">
+              <PropertyRef Name="id_s" />
+            </Principal>
+            <Dependent Role="Position">
+              <PropertyRef Name="id_s" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Staff__id_prem__2C3393D0">
+          <End Role="Premium" Type="Self.Premium" Multiplicity="0..1" />
+          <End Role="Staff" Type="Self.Staff" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Premium">
+              <PropertyRef Name="id_prem" />
+            </Principal>
+            <Dependent Role="Staff">
+              <PropertyRef Name="id_prem" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Staff__id_sal__2B3F6F97">
+          <End Role="Salary" Type="Self.Salary" Multiplicity="0..1" />
+          <End Role="Staff" Type="Self.Staff" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Salary">
+              <PropertyRef Name="id_sal" />
+            </Principal>
+            <Dependent Role="Staff">
+              <PropertyRef Name="id_sal" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище PersonnelModelContainer">
+          <EntitySet Name="Challenger" EntityType="Self.Challenger" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Position" EntityType="Self.Position" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Premium" EntityType="Self.Premium" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Salary" EntityType="Self.Salary" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Staff" EntityType="Self.Staff" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Position__id_c__2F10007B" Association="Self.FK__Position__id_c__2F10007B">
+            <End Role="Challenger" EntitySet="Challenger" />
+            <End Role="Position" EntitySet="Position" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Position__id_s__300424B4" Association="Self.FK__Position__id_s__300424B4">
+            <End Role="Staff" EntitySet="Staff" />
+            <End Role="Position" EntitySet="Position" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Staff__id_prem__2C3393D0" Association="Self.FK__Staff__id_prem__2C3393D0">
+            <End Role="Premium" EntitySet="Premium" />
+            <End Role="Staff" EntitySet="Staff" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Staff__id_sal__2B3F6F97" Association="Self.FK__Staff__id_sal__2B3F6F97">
+            <End Role="Salary" EntitySet="Salary" />
+            <End Role="Staff" EntitySet="Staff" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PersonnelModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Challenger">
+          <Key>
+            <PropertyRef Name="id_c" />
+          </Key>
+          <Property Name="id_c" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="surname" Type="String" MaxLength="100" FixedLength="true" Unicode="false" />
+          <Property Name="C_name" Type="String" MaxLength="50" FixedLength="true" Unicode="false" />
+          <Property Name="middlename" Type="String" MaxLength="100" FixedLength="true" Unicode="false" />
+          <Property Name="education" Type="String" MaxLength="150" FixedLength="true" Unicode="false" />
+          <Property Name="dateofbirth" Type="DateTime" Precision="0" />
+          <Property Name="C_address" Type="String" MaxLength="150" FixedLength="true" Unicode="false" />
+          <Property Name="email" Type="String" MaxLength="150" FixedLength="true" Unicode="false" />
+          <Property Name="phone" Type="String" MaxLength="50" FixedLength="true" Unicode="false" />
+          <NavigationProperty Name="Positions" Relationship="Self.FK__Position__id_c__2F10007B" FromRole="Challenger" ToRole="Position" />
+        </EntityType>
+        <EntityType Name="Position">
+          <Key>
+            <PropertyRef Name="id_p" />
+          </Key>
+          <Property Name="id_p" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_s" Type="Int32" />
+          <Property Name="id_c" Type="Int32" />
+          <Property Name="C_name" Type="String" MaxLength="100" FixedLength="true" Unicode="false" />
+          <Property Name="oklad" Type="Int32" />
+          <NavigationProperty Name="Challenger" Relationship="Self.FK__Position__id_c__2F10007B" FromRole="Position" ToRole="Challenger" />
+          <NavigationProperty Name="Staff" Relationship="Self.FK__Position__id_s__300424B4" FromRole="Position" ToRole="Staff" />
+        </EntityType>
+        <EntityType Name="Premium">
+          <Key>
+            <PropertyRef Name="id_prem" />
+          </Key>
+          <Property Name="id_prem" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="C_name" Type="String" MaxLength="60" FixedLength="true" Unicode="false" />
+          <Property Name="sizeofpremium" Type="Int32" />
+          <NavigationProperty Name="Staffs" Relationship="Self.FK__Staff__id_prem__2C3393D0" FromRole="Premium" ToRole="Staff" />
+        </EntityType>
+        <EntityType Name="Salary">
+          <Key>
+            <PropertyRef Name="id_sal" />
+          </Key>
+          <Property Name="id_sal" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="C_name" Type="String" MaxLength="60" FixedLength="true" Unicode="false" />
+          <Property Name="sizeofsalary" Type="Int32" />
+          <Property Name="premia" Type="Int32" />
+          <NavigationProperty Name="Staffs" Relationship="Self.FK__Staff__id_sal__2B3F6F97" FromRole="Salary" ToRole="Staff" />
+        </EntityType>
+        <EntityType Name="Staff">
+          <Key>
+            <PropertyRef Name="id_s" />
+          </Key>
+          <Property Name="id_s" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_sal" Type="Int32" />
+          <Property Name="id_prem" Type="Int32" />
+          <Property Name="surname" Type="String" MaxLength="100" FixedLength="true" Unicode="false" />
+          <Property Name="C_name" Type="String" MaxLength="50" FixedLength="true" Unicode="false" />
+          <Property Name="middlename" Type="String" MaxLength="100" FixedLength="true" Unicode="false" />
+          <Property Name="education" Type="String" MaxLength="150" FixedLength="true" Unicode="false" />
+          <Property Name="dateofbirth" Type="DateTime" Precision="0" />
+          <Property Name="dateofstartjob" Type="DateTime" Precision="0" />
+          <Property Name="series_p" Type="Int32" />
+          <Property Name="number_p" Type="Int32" />
+          <Property Name="email" Type="String" MaxLength="150" FixedLength="true" Unicode="false" />
+          <Property Name="phone" Type="String" MaxLength="50" FixedLength="true" Unicode="false" />
+          <NavigationProperty Name="Positions" Relationship="Self.FK__Position__id_s__300424B4" FromRole="Staff" ToRole="Position" />
+          <NavigationProperty Name="Premium" Relationship="Self.FK__Staff__id_prem__2C3393D0" FromRole="Staff" ToRole="Premium" />
+          <NavigationProperty Name="Salary" Relationship="Self.FK__Staff__id_sal__2B3F6F97" FromRole="Staff" ToRole="Salary" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <Association Name="FK__Position__id_c__2F10007B">
+          <End Role="Challenger" Type="Self.Challenger" Multiplicity="0..1" />
+          <End Role="Position" Type="Self.Position" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Challenger">
+              <PropertyRef Name="id_c" />
+            </Principal>
+            <Dependent Role="Position">
+              <PropertyRef Name="id_c" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Position__id_s__300424B4">
+          <End Role="Staff" Type="Self.Staff" Multiplicity="0..1" />
+          <End Role="Position" Type="Self.Position" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Staff">
+              <PropertyRef Name="id_s" />
+            </Principal>
+            <Dependent Role="Position">
+              <PropertyRef Name="id_s" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Staff__id_prem__2C3393D0">
+          <End Role="Premium" Type="Self.Premium" Multiplicity="0..1" />
+          <End Role="Staff" Type="Self.Staff" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Premium">
+              <PropertyRef Name="id_prem" />
+            </Principal>
+            <Dependent Role="Staff">
+              <PropertyRef Name="id_prem" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Staff__id_sal__2B3F6F97">
+          <End Role="Salary" Type="Self.Salary" Multiplicity="0..1" />
+          <End Role="Staff" Type="Self.Staff" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Salary">
+              <PropertyRef Name="id_sal" />
+            </Principal>
+            <Dependent Role="Staff">
+              <PropertyRef Name="id_sal" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PersonnelEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Challengers" EntityType="Self.Challenger" />
+          <EntitySet Name="Positions" EntityType="Self.Position" />
+          <EntitySet Name="Premiums" EntityType="Self.Premium" />
+          <EntitySet Name="Salaries" EntityType="Self.Salary" />
+          <EntitySet Name="Staffs" EntityType="Self.Staff" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <AssociationSet Name="FK__Position__id_c__2F10007B" Association="Self.FK__Position__id_c__2F10007B">
+            <End Role="Challenger" EntitySet="Challengers" />
+            <End Role="Position" EntitySet="Positions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Position__id_s__300424B4" Association="Self.FK__Position__id_s__300424B4">
+            <End Role="Staff" EntitySet="Staffs" />
+            <End Role="Position" EntitySet="Positions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Staff__id_prem__2C3393D0" Association="Self.FK__Staff__id_prem__2C3393D0">
+            <End Role="Premium" EntitySet="Premiums" />
+            <End Role="Staff" EntitySet="Staffs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Staff__id_sal__2B3F6F97" Association="Self.FK__Staff__id_sal__2B3F6F97">
+            <End Role="Salary" EntitySet="Salaries" />
+            <End Role="Staff" EntitySet="Staffs" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище PersonnelModelContainer" CdmEntityContainer="PersonnelEntities">
+          <EntitySetMapping Name="Challengers">
+            <EntityTypeMapping TypeName="PersonnelModel.Challenger">
+              <MappingFragment StoreEntitySet="Challenger">
+                <ScalarProperty Name="id_c" ColumnName="id_c" />
+                <ScalarProperty Name="surname" ColumnName="surname" />
+                <ScalarProperty Name="C_name" ColumnName="_name" />
+                <ScalarProperty Name="middlename" ColumnName="middlename" />
+                <ScalarProperty Name="education" ColumnName="education" />
+                <ScalarProperty Name="dateofbirth" ColumnName="dateofbirth" />
+                <ScalarProperty Name="C_address" ColumnName="_address" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Positions">
+            <EntityTypeMapping TypeName="PersonnelModel.Position">
+              <MappingFragment StoreEntitySet="Position">
+                <ScalarProperty Name="id_p" ColumnName="id_p" />
+                <ScalarProperty Name="id_s" ColumnName="id_s" />
+                <ScalarProperty Name="id_c" ColumnName="id_c" />
+                <ScalarProperty Name="C_name" ColumnName="_name" />
+                <ScalarProperty Name="oklad" ColumnName="oklad" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Premiums">
+            <EntityTypeMapping TypeName="PersonnelModel.Premium">
+              <MappingFragment StoreEntitySet="Premium">
+                <ScalarProperty Name="id_prem" ColumnName="id_prem" />
+                <ScalarProperty Name="C_name" ColumnName="_name" />
+                <ScalarProperty Name="sizeofpremium" ColumnName="sizeofpremium" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Salaries">
+            <EntityTypeMapping TypeName="PersonnelModel.Salary">
+              <MappingFragment StoreEntitySet="Salary">
+                <ScalarProperty Name="id_sal" ColumnName="id_sal" />
+                <ScalarProperty Name="C_name" ColumnName="_name" />
+                <ScalarProperty Name="sizeofsalary" ColumnName="sizeofsalary" />
+                <ScalarProperty Name="premia" ColumnName="premia" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Staffs">
+            <EntityTypeMapping TypeName="PersonnelModel.Staff">
+              <MappingFragment StoreEntitySet="Staff">
+                <ScalarProperty Name="id_s" ColumnName="id_s" />
+                <ScalarProperty Name="id_sal" ColumnName="id_sal" />
+                <ScalarProperty Name="id_prem" ColumnName="id_prem" />
+                <ScalarProperty Name="surname" ColumnName="surname" />
+                <ScalarProperty Name="C_name" ColumnName="_name" />
+                <ScalarProperty Name="middlename" ColumnName="middlename" />
+                <ScalarProperty Name="education" ColumnName="education" />
+                <ScalarProperty Name="dateofbirth" ColumnName="dateofbirth" />
+                <ScalarProperty Name="dateofstartjob" ColumnName="dateofstartjob" />
+                <ScalarProperty Name="series_p" ColumnName="series_p" />
+                <ScalarProperty Name="number_p" ColumnName="number_p" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="PersonnelModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

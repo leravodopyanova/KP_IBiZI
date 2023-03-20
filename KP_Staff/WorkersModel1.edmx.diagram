@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="97a08daa673f4388898c977131ea2102" Name="Diagram1">
+        <EntityTypeShape EntityType="WorkersModel1.Challenger" Width="1.5" PointX="3" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="WorkersModel1.Position" Width="1.5" PointX="0.75" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="WorkersModel1.Premium" Width="1.5" PointX="3.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="WorkersModel1.Salary" Width="1.5" PointX="9.125" PointY="6.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="WorkersModel1.Staff" Width="1.5" PointX="6" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="WorkersModel1.sysdiagrams" Width="1.5" PointX="10.375" PointY="11" IsExpanded="true" />
+        <AssociationConnector Association="WorkersModel1.FK__Challenger__id_p__5BE2A6F2" ManuallyRouted="false" />
+        <AssociationConnector Association="WorkersModel1.FK__Staff__id_p__5AEE82B9" ManuallyRouted="false" />
+        <AssociationConnector Association="WorkersModel1.FK__Staff__id_prem__2C3393D0" ManuallyRouted="false" />
+        <AssociationConnector Association="WorkersModel1.FK__Staff__id_sal__2B3F6F97" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

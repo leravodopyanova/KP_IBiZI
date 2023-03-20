@@ -1,0 +1,534 @@
+﻿<Page x:Class="KP.WorkerPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:command="clr-namespace:KP.DataCommands"
+      xmlns:rule="clr-namespace:KP.ValidationRules"
+      mc:Ignorable="d"
+      d:DesignHeight="540" d:DesignWidth="1000"
+      Title="WorkerPage"
+      Loaded="Page_Loaded">
+    <Page.CommandBindings>
+        <CommandBinding Command="Undo" Executed="UndoCommandBinding_Executed"  CanExecute="SaveCommandBinding_CanExecute" />
+        <CommandBinding Command="New" Executed="NewCommandBinding_Executed"  CanExecute="SaveCommandBinding_CanExecute" />
+        <CommandBinding Command="Delete" Executed="DeleteCommandBinding_Executed"  CanExecute="SaveCommandBinding_CanExecute" />
+        <CommandBinding Command="{x:Static command:DataCommands.Edit}" Executed="EditCommandBinding_Executed"  CanExecute="EditCommandBinding_CanExecute" />
+        <CommandBinding Command="Find" Executed="FindCommandBinding_Executed"  CanExecute="SaveCommandBinding_CanExecute" />
+        <CommandBinding Command="Save" Executed="SaveCommandBinding_Executed"  CanExecute="SaveCommandBinding_CanExecute" />
+        <CommandBinding Command="Refresh" Executed="RefreshCommandBinding_Executed" />
+    </Page.CommandBindings>
+    <Page.Resources>
+        <DataTemplate x:Key="DateTemplate1" >
+            <TextBlock Text="{Binding dateofbirth, StringFormat={}{0:dd\.}{0:MM\.}{0:yyyy}}"  Foreground="Black" VerticalAlignment="Center" HorizontalAlignment="Center" />
+        </DataTemplate>
+        <DataTemplate x:Key="EditingDateTemplate1">
+            <DatePicker SelectedDate="{Binding dateofbirth, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+        </DataTemplate>
+        <DataTemplate x:Key="DateTemplate2" >
+            <TextBlock Text="{Binding dateofstartjob, StringFormat={}{0:dd\.}{0:MM\.}{0:yyyy}}" Foreground="Black" VerticalAlignment="Center" HorizontalAlignment="Center" />
+        </DataTemplate>
+        <DataTemplate x:Key="EditingDateTemplate2">
+            <DatePicker SelectedDate="{Binding dateofstartjob, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+        </DataTemplate>
+        <Style x:Key="errorStyle" TargetType="{x:Type TextBox}">
+            <Setter Property="Padding" Value="-2"/>
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="True">
+                    <Setter Property="Background" Value="Red"/>
+                    <Setter Property="BorderThickness" Value="1" />
+                    <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self}, Path=(Validation.Errors)[0].ErrorContent}"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Page.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="500"/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" Background="#181735" Width="400"/>
+        <Grid Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" Margin="121,0,0,0" >
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4">
+                <TextBox FontFamily="Fonts/#Kurale"
+                     VerticalAlignment="Center"
+                     HorizontalAlignment="Center"
+                     TextAlignment="Center"
+                     FontWeight="Light"
+                     FontSize="20"
+                     Foreground="White"
+                     Text ="Поиск работника по"
+                     Background="Transparent"
+                     BorderThickness ="0"
+                     Width="235"
+                     HorizontalContentAlignment="Left"/>
+            </StackPanel>
+            <StackPanel Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" Orientation="Horizontal">
+                <TextBox FontFamily="Fonts/#Kurale"
+                     VerticalAlignment="Center"
+                     HorizontalAlignment="Center"
+                     TextAlignment="Left"
+                     FontWeight="Light"
+                     FontSize="16"
+                     Foreground="White"
+                     Text ="Фамилия"
+                     Background="Transparent"
+                     BorderThickness ="0"
+                     Width="235"
+                     HorizontalContentAlignment="Left"
+                     x:Name="surnameWorker"/>
+            </StackPanel>
+            <StackPanel Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="2" >
+                <Button x:Name="ButtonFindSurname" ToolTip="Поиск по фамилии" IsEnabled="True" Click="ButtonFindSurname_Click" HorizontalAlignment="Right"
+                        Background="Transparent">
+                    <Image Source="Images/find_.png"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center"
+                   Height="23" RenderTransformOrigin="2.096,0.461" Width="23"/>
+                </Button>
+            </StackPanel>
+            <Border Width="250" Height="2" Background="White" Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="4" VerticalAlignment="Bottom"/>
+            <StackPanel Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2" Orientation="Horizontal"/>
+            <StackPanel Grid.Row="8" Grid.Column="2" Grid.ColumnSpan="2" >
+                <Button x:Name="ButtonFindSalary" ToolTip="Поиск по зарплате" IsEnabled="True" Click="ButtonFindSalary_Click" 
+                        HorizontalAlignment="Right" Background="Transparent" >
+                    <Image Source="Images/find_.png"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center"
+                   Height="23" RenderTransformOrigin="2.096,0.461" Width="23"/>
+                </Button>                
+            </StackPanel>
+            <StackPanel Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2" Orientation="Horizontal"/>
+            <StackPanel Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="5" Grid.RowSpan="2" >
+                <Button x:Name="ButtonFindEdu" ToolTip="Поиск по образованию" IsEnabled="True" Click="ButtonFindEdu_Click" 
+                        HorizontalAlignment="Right" Background="Transparent" >
+                    <Image Source="Images/find_.png"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center"
+                   Height="23" RenderTransformOrigin="2.096,0.461" Width="23"/>
+                </Button>
+            </StackPanel>
+            <Border Width="250"
+                Height="2"
+                Background="White"
+                Grid.Column="0" Grid.Row="7" Grid.ColumnSpan="4"
+                VerticalAlignment="Bottom"/>
+            <StackPanel Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="2" Orientation="Horizontal">
+                <TextBox FontFamily="Fonts/#Kurale"
+                     VerticalAlignment="Center"
+                     HorizontalAlignment="Center"
+                     TextAlignment="Left"
+                     FontWeight="Light"
+                     FontSize="16"
+                     Foreground="White"
+                     Text ="Зарплата от"
+                     Background="Transparent"
+                     BorderThickness ="0"
+                     Width="235"
+                     HorizontalContentAlignment="Left"
+                     x:Name="salaryFrom"/>
+            </StackPanel>
+            <StackPanel Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2" Orientation="Horizontal">
+                <TextBox FontFamily="Fonts/#Kurale"
+                     VerticalAlignment="Center"
+                     HorizontalAlignment="Center"
+                     TextAlignment="Left"
+                     FontWeight="Light"
+                     FontSize="16"
+                     Foreground="White"
+                     Text ="Образование"
+                     Background="Transparent"
+                     BorderThickness ="0"
+                     Width="235"
+                     HorizontalContentAlignment="Left"
+                     IsEnabled="False"/>
+            </StackPanel>
+            <StackPanel Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2" Orientation="Horizontal" Grid.RowSpan="2">
+                <ComboBox FontFamily="Fonts/#Kurale"
+                     VerticalAlignment="Center"
+                     HorizontalAlignment="Center"
+                     FontWeight="Light"
+                     FontSize="12"
+                     Foreground="#0F0F2D"
+                     Width="280"
+                     ToolTip="Образование"
+                     Height="25"
+                     Text ="Образование"
+                     Background="Transparent"
+                     BorderThickness ="0"
+                     HorizontalContentAlignment="Left"
+                     x:Name="educationWorker">
+                    <ComboBoxItem Content="Высшее полное"/>
+                    <ComboBoxItem Content="Неоконченное высшее"/>
+                    <ComboBoxItem Content="Среднее специальное"/>
+                    <ComboBoxItem Content="Среднее полное"/>
+                    <ComboBoxItem Content="Неоконченное среднее"/>
+                </ComboBox>
+            </StackPanel>
+            <DatePicker x:Name="dateofbirth" FirstDayOfWeek="Monday"  
+                  Grid.Column="2" Grid.Row="9"
+                  Width="100" HorizontalAlignment="Center" VerticalAlignment="Center"
+                  SelectedDate="01/01/2021"/>
+            <StackPanel Grid.Row="9" Grid.Column="1" Orientation="Horizontal">
+                <TextBox FontFamily="Fonts/#Kurale"
+                     VerticalAlignment="Center"
+                     HorizontalAlignment="Center"
+                     TextAlignment="Center"
+                     FontWeight="Light"
+                     FontSize="9"
+                     Foreground="White"
+                     Text ="Дата рождения от"
+                     Background="Transparent"
+                     BorderThickness ="0"
+                     HorizontalContentAlignment="Left"
+                     IsEnabled="False" Margin="0,6,0,6.4" Width="108"/>
+            </StackPanel>
+            <Border Width="250"
+                Height="2"
+                Background="White"
+                Grid.Column="0" Grid.Row="8" Grid.ColumnSpan="4"                
+                VerticalAlignment="Bottom"/>
+            <DatePicker x:Name="dateofstartjob"  FirstDayOfWeek="Monday"  
+                   Grid.Column="2" Grid.Row="10"
+                  Width="100" HorizontalAlignment="Center" VerticalAlignment="Center" SelectedDate="01/01/2021"/>
+            <StackPanel Grid.Row="10" Grid.Column="1" Orientation="Horizontal">
+                <TextBox FontFamily="Fonts/#Kurale"
+                     VerticalAlignment="Center"
+                     HorizontalAlignment="Center"
+                     TextAlignment="Center"
+                     FontWeight="Light"
+                     FontSize="9"
+                     Foreground="White"
+                     Text ="Работает от"
+                     TextWrapping="WrapWithOverflow"
+                     Background="Transparent"
+                     BorderThickness ="0"
+                     Width="110"
+                     HorizontalContentAlignment="Left"
+                     IsEnabled="False" Margin="0,1,0,1.8" Height="26"/>
+            </StackPanel>
+            <Border Width="250"
+                Height="2"
+                Background="White"
+                Grid.Column="0" Grid.Row="9" Grid.ColumnSpan="4"                
+                VerticalAlignment="Bottom"/>
+            <StackPanel Grid.Row="11" Grid.Column="1" Grid.ColumnSpan="2" Orientation="Horizontal"/>
+            <StackPanel Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="9" Grid.RowSpan="2" >
+                <Button x:Name="ButtonFindBirth" ToolTip="Поиск по дате рождения" Click="ButtonFindBirth_Click" 
+                        HorizontalAlignment="Right" Background="Transparent" >
+                    <Image Source="Images/find_.png"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center"
+                   Height="23" RenderTransformOrigin="2.096,0.461" Width="23"/>
+                </Button>
+            </StackPanel>
+            <StackPanel Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="10" Grid.RowSpan="2" >
+                <Button x:Name="ButtonFindStart" ToolTip="Поиск по дате начала работы" IsEnabled="True" Click="ButtonFindStart_Click" 
+                        HorizontalAlignment="Right" Background="Transparent" >
+                    <Image Source="Images/find_.png"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center"
+                   Height="23" RenderTransformOrigin="2.096,0.461" Width="23"/>
+                </Button>
+            </StackPanel>
+            <StackPanel Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="14" Grid.RowSpan="2" >               
+            </StackPanel>
+            <Border Width="250"
+                Height="2"
+                Background="White"
+                Grid.Column="0" Grid.Row="10" Grid.ColumnSpan="4"
+                VerticalAlignment="Bottom"/>
+
+            <StackPanel Grid.Row="12" Grid.Column="1" Grid.ColumnSpan="2" Orientation="Horizontal"/>
+            <StackPanel Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="11" Grid.RowSpan="2" >
+                <Button x:Name="ButtonFindPosition" ToolTip="Поиск по должности" IsEnabled="True" 
+                        Click="ButtonFindPosition_Click" HorizontalAlignment="Right" Background="Transparent" >
+                    <Image Source="Images/find_.png"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center"
+                   Height="23" RenderTransformOrigin="2.096,0.461" Width="23"/>
+                </Button>
+            </StackPanel>
+            <StackPanel Grid.Row="11" Grid.Column="1" Grid.ColumnSpan="2" Orientation="Horizontal">
+                <TextBox FontFamily="Fonts/#Kurale"
+                     VerticalAlignment="Center"
+                     HorizontalAlignment="Center"
+                     TextAlignment="Left"
+                     FontWeight="Light"
+                     FontSize="16"
+                     Foreground="White"
+                     Text ="Должность"
+                     IsEnabled="False"
+                     Background="Transparent"
+                     BorderThickness ="0"
+                     Width="235"
+                     HorizontalContentAlignment="Left"
+                     x:Name="emailR"/>
+            </StackPanel>
+            <StackPanel Grid.Row="12" Grid.Column="1" Grid.ColumnSpan="2" Orientation="Horizontal" Grid.RowSpan="2">            
+                <ComboBox FontFamily="Fonts/#Kurale"
+                     VerticalAlignment="Center"
+                     HorizontalAlignment="Center"
+                     FontWeight="Light"
+                     FontSize="12"
+                     Foreground="#0F0F2D"
+                     Width="280"
+                     ToolTip="Образование"
+                     Height="25"
+                     Background="Transparent"
+                     BorderThickness ="0"
+                     HorizontalContentAlignment="Left"
+                     x:Name="positionWorker"
+                     Loaded="positionWorker_Loaded"  
+                     Text="{Binding С_name, Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" 
+                     SelectedValue ="{Binding C_name, Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}"  
+                     DisplayMemberPath = "C_name" SelectedValuePath="id_p">
+                </ComboBox>
+            </StackPanel>
+            <StackPanel Grid.Row="12" Grid.Column="2" />
+            <StackPanel Grid.Row="14" Grid.Column="1" Grid.ColumnSpan="2" Orientation="Horizontal"/>
+            <StackPanel Grid.Row="13" Grid.Column="2" />
+            <Border Width="250"
+                Height="2"
+                Background="White"
+                Grid.Column="0" Grid.Row="13" Grid.ColumnSpan="4"
+                VerticalAlignment="Bottom"/>
+            <StackPanel Grid.Row="15" Grid.ColumnSpan="4" >
+                <Button Content="Найти по всем параметрам"
+                        Foreground="White"
+                        FontSize="14"
+                        FontWeight="Medium"
+                        x:Name="btnFindAll"
+                        Width="Auto"
+                        Click="btnFindAll_Click">
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="TextElement.FontFamily" Value="Fonts/#Kurale"/>
+                            <Setter Property="Background" Value="#39385D"/>
+                            <Setter Property="Cursor" Value="Hand"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#393952"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border Width="200" Height="25"
+                                    CornerRadius="12"
+                                    Background="{TemplateBinding Background}">
+                                <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </StackPanel>
+            <StackPanel Grid.Row="17" Grid.ColumnSpan="4" Grid.RowSpan="2" />
+        </Grid>
+        <Grid Grid.Column="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Menu Grid.Column="0"
+                  Foreground="White"
+                  Background="Transparent"
+                  Grid.ColumnSpan="7"
+                  VerticalAlignment="Center"
+                  HorizontalAlignment="Left"
+                  FontFamily="Fonts/#Kurale"
+                  FontWeight="Medium">
+                <MenuItem Header="Меню" >
+                    <MenuItem Header="Отменить" Command="Undo" Foreground="Black"/>
+                    <Separator/>
+                    <MenuItem Header="Создать" Command="New" Foreground="Black"/>
+                    <MenuItem Header="Редактировать" Command="{x:Static command:DataCommands.Edit}" Foreground="Black"/>
+                    <MenuItem Header="Сохранить" Command="Save" Foreground="Black"/>
+                    <MenuItem Header="Найти" Command="Find" Foreground="Black"/>
+                    <Separator/>
+                    <MenuItem Header="Удалить" Command="Delete" Foreground="Black"/>
+                    <Separator/>
+                    <MenuItem Header="Обновить" Command="Refresh"/>                    
+                </MenuItem>
+                <MenuItem Header="Обновить" Command="Refresh"/>
+            </Menu>
+            <StackPanel Grid.Row="15" Grid.ColumnSpan="3" Grid.Column="2">
+                <Button Content="Сохранить в .CSV"
+                        Foreground="White"
+                        FontSize="14"
+                        FontWeight="Medium"
+                        x:Name="btnWord"
+                        Width="Auto"
+                        Click="btnWord_Click">
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="TextElement.FontFamily" Value="Fonts/#Kurale"/>
+                            <Setter Property="Background" Value="#3DDDC2"/>
+                            <Setter Property="Cursor" Value="Hand"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#3DEC99"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border Width="150" Height="25"
+                                    CornerRadius="12"
+                                    Background="{TemplateBinding Background}">
+                                <ContentPresenter VerticalAlignment="Center"
+                                                  HorizontalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2">
+            <DataGrid Foreground="Black"
+                  Background="#0F0F2D"
+                  VerticalAlignment="Top"
+                  HorizontalAlignment="Stretch"
+                  FontFamily="Fonts/#Kurale"
+                  FontWeight="Medium"
+                  x:Name="DataGrid" ItemsSource="{Binding}" AutoGenerateColumns="False" 
+                  MaxHeight="500" RowBackground="#E6E6FA" AlternatingRowBackground="#CBC1D9" BorderBrush="#FC6586"
+                  BorderThickness="3" IsReadOnly="True" RowHeight="25" Cursor="Hand" RenderTransformOrigin="0.5,0.5" Margin="3,-1,391,0" SelectionChanged="DataGrid_SelectionChanged" >
+              
+                <DataGrid.RowValidationErrorTemplate>
+                    <ControlTemplate>
+                        <Grid Margin="0,-2,0,-2" ToolTip="{Binding (Validation.Errors)[0].ErrorContent, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGridRow}}}">
+                            <Ellipse StrokeThickness="0" Fill="Red" Width="{TemplateBinding FontSize}" Height="{TemplateBinding FontSize}" />
+                            <TextBlock Text="!" FontSize="{TemplateBinding FontSize}" FontWeight="Bold" Foreground="Black" HorizontalAlignment="Center" />
+                        </Grid>
+                    </ControlTemplate>
+                </DataGrid.RowValidationErrorTemplate>
+                <DataGrid.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform AngleY="0.282"/>
+                        <RotateTransform/>
+                        <TranslateTransform Y="1.195"/>
+                    </TransformGroup>
+                </DataGrid.RenderTransform>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Фамилия" Foreground="Black" Binding="{Binding surname, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    <DataGridTextColumn Header="Имя" Foreground="Black" Binding="{Binding C_name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    <DataGridTextColumn Header="Отчество" Foreground="Black" Binding="{Binding middlename, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    <DataGridTextColumn Header="Образование" Foreground="Black" Binding="{Binding education, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    <DataGridTextColumn Header="Серия паспорта" Foreground="Black" Binding="{Binding series_p, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    <DataGridTextColumn Header="Номер паспорта" Foreground="Black" Binding="{Binding number_p, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    <DataGridTemplateColumn Header="Дата рождения" CellTemplate="{StaticResource DateTemplate1}"  CellEditingTemplate="{StaticResource EditingDateTemplate1}" />
+                    <DataGridTemplateColumn Header="Дата начала работы " CellTemplate="{StaticResource DateTemplate2}"  CellEditingTemplate="{StaticResource EditingDateTemplate2}" />
+                    <DataGridTextColumn Header="Электронная почта" Foreground="Black" EditingElementStyle="{StaticResource errorStyle}">
+                        <DataGridTextColumn.Binding >
+                            <Binding Path="email" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged" ValidatesOnExceptions ="True" >
+                                <Binding.ValidationRules>
+                                    <rule:EmailRules/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </DataGridTextColumn.Binding>
+                    </DataGridTextColumn>
+                    <DataGridTemplateColumn Header="Должность">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <ComboBox x:Name="cmbPayee" Loaded="cmbPayee_Loaded" Text="{Binding С_name, Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" SelectedValue ="{Binding id_p, Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}"  DisplayMemberPath = "id_p" SelectedValuePath="id_p"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTextColumn Header="Телефон" Foreground="Black" EditingElementStyle="{StaticResource errorStyle}">
+                        <DataGridTextColumn.Binding >
+                            <Binding Path="phone" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged" ValidatesOnExceptions ="True">
+                                <Binding.ValidationRules>
+                                    <rule:TelephoneRules/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </DataGridTextColumn.Binding>
+                    </DataGridTextColumn>
+                   <DataGridTemplateColumn Header="Оклад, руб">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <ComboBox x:Name="cmbPayee1" Loaded="cmbPayee1_Loaded" Text="{Binding oklad, Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" SelectedValue ="{Binding id_p, Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}"  DisplayMemberPath = "id_p" SelectedValuePath="id_p"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn> 
+                    <DataGridTemplateColumn Header="Ставка">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <ComboBox x:Name="cmbPayee2" Loaded="cmbPayee2_Loaded" Text="{Binding stavka, Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" SelectedValue ="{Binding id_p, Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}"  DisplayMemberPath = "id_p" SelectedValuePath="id_p"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Зарплата, руб">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <ComboBox x:Name="cmbPayee3" Loaded="cmbPayee3_Loaded" Text="{Binding sizeofsalary, Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" SelectedValue ="{Binding id_sal, Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}"  DisplayMemberPath = "id_sal" SelectedValuePath="id_sal"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Период">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <ComboBox x:Name="cmbPayee5" Loaded="cmbPayee4_Loaded" Text="{Binding period, Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" SelectedValue ="{Binding id_sal, Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}"  DisplayMemberPath = "id_sal" SelectedValuePath="id_sal"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Премия, % от зарплаты">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <ComboBox x:Name="cmbPayee6" Loaded="cmbPayee6_Loaded" Text="{Binding sizeofpremium, Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" SelectedValue ="{Binding id_prem, Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}"  DisplayMemberPath = "id_prem" SelectedValuePath="id_prem"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Название премии">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <ComboBox x:Name="cmbPayee7" Loaded="cmbPayee7_Loaded" Text="{Binding С_name, Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" SelectedValue ="{Binding id_prem, Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}"  DisplayMemberPath = "id_prem" SelectedValuePath="id_prem"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+    </Grid>
+</Page>

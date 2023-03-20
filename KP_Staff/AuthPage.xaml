@@ -1,0 +1,127 @@
+﻿<Page x:Class="KP.RegPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      mc:Ignorable="d" 
+      d:DesignHeight="500" d:DesignWidth="1000"
+      Title="AuthPage">
+
+    <Grid>
+        <Grid x:Name="gridFull" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan ="2">
+            <Frame x:Name="mainFrame"/>            
+        </Grid>
+        <Grid x:Name="gridAuth1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <Grid x:Name="gridAuth" Grid.Column="1" >
+                <Grid x:Name="auth">
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+
+                    <StackPanel Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="2" Orientation="Horizontal">
+                        <PasswordBox FontFamily="Fonts/#Kurale"
+                     x:Name="passAuth"
+                     VerticalAlignment="Center"
+                     HorizontalAlignment="Center"
+                     FontWeight="Light"
+                     FontSize="20"
+                     Foreground="White"
+                     Password ="Пароль"
+                     Background="Transparent"
+                     BorderThickness ="0"
+                     Width="235"
+                     HorizontalContentAlignment="Left"/>
+                    </StackPanel>
+                    <StackPanel Grid.Row="8" Grid.Column="2" >
+                        <Image Source="Images/padlock.png"
+                   VerticalAlignment="Bottom"
+                   HorizontalAlignment="Right"
+                   Margin="0" Height="32" RenderTransformOrigin="2.096,0.461" Width="32"/>
+                    </StackPanel>
+                    <Border Width="250"
+                Height="2"
+                Background="White"
+                Grid.Column="0" Grid.Row="8" Grid.ColumnSpan="4"
+                VerticalAlignment="Bottom"/>
+
+                    <StackPanel Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="4">
+                        <TextBox FontFamily="Fonts/#Kurale"
+                     VerticalAlignment="Center"
+                     HorizontalAlignment="Center"
+                     TextAlignment="Center"
+                     FontWeight="Light"
+                     FontSize="20"
+                     Foreground="White"
+                     Text ="Авторизация"
+                     Background="Transparent"
+                     BorderThickness ="0"
+                     Width="235"
+                     HorizontalContentAlignment="Left"/>
+                    </StackPanel>
+                    <StackPanel Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2" Orientation="Horizontal">
+                        <TextBox FontFamily="Fonts/#Kurale"
+                     VerticalAlignment="Center"
+                     HorizontalAlignment="Center"
+                     TextAlignment="Left"
+                     FontWeight="Light"
+                     FontSize="20"
+                     Foreground="White"
+                     Text ="Логин"
+                     Background="Transparent"
+                     BorderThickness ="0"
+                     Width="235"
+                     HorizontalContentAlignment="Left"
+                     x:Name="logAuth"/>
+                    </StackPanel>
+                    <StackPanel Grid.Row="6" Grid.Column="2" >
+                        <Image Source="Images/user.png"
+                   VerticalAlignment="Bottom"
+                   HorizontalAlignment="Right"
+                   Margin="0" Height="30" RenderTransformOrigin="2.096,0.461" Width="33"/>
+                    </StackPanel>
+                    <Border Width="250"
+                Height="2"
+                Background="White"
+                Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="4"
+                VerticalAlignment="Bottom"/>
+                    <StackPanel Grid.Row="10" Grid.ColumnSpan="4" >
+                        <Button FontFamily="Fonts/#Kurale" FontSize="15"
+                Foreground="White"
+                Width="100" Height="26"                 
+                Content="Вход"
+                VerticalAlignment="Center"
+                x:Name="btnAuthPage"
+                Click="btnAuthPage_Click"/>
+                    </StackPanel>
+                </Grid>
+            </Grid>
+        </Grid>          
+    </Grid>        
+</Page>

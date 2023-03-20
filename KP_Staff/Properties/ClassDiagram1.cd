@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="KP_Staff.RegPage" BaseTypeListCollapsed="true">
+    <Position X="2.75" Y="6.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAgAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>AuthPage.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="KP_Staff.ChallengerPage" BaseTypeListCollapsed="true">
+    <Position X="10" Y="6.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>CQAAAAAAMMiBkCgQgAAMCIAAAZAQAgEAGAAAAgAGQAA=</HashCode>
+      <FileName>ChallengerPage.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="KP_Staff.NewChallengerPage" BaseTypeListCollapsed="true">
+    <Position X="0.5" Y="5.25" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAEAAAAAAAAEAAAACBAAAAAAAIAAAAAAAAAAAAA=</HashCode>
+      <FileName>NewChallengerPage.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="KP_Staff.NewWorkerPage" BaseTypeListCollapsed="true">
+    <Position X="5" Y="7.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAIAEAAAAAAAAEAAAACBAAAQAAAIAAAAAAAAAAAAA=</HashCode>
+      <FileName>NewWorkerPage.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="KP_Staff.AuthPage" BaseTypeListCollapsed="true">
+    <Position X="7.75" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAEAAAAEQAAACAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>RegPage.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="KP_Staff.WorkerPage" BaseTypeListCollapsed="true">
+    <Position X="12.25" Y="4.25" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>iAAIAAAAMMiBECIQgAAECAgACZAQAgEAGAAAAgAGIAA=</HashCode>
+      <FileName>WorkerPage.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="KP_Staff.Challenger">
+    <Position X="3" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAABAgAgAUEAAAAAEAACAgAAAAAkAAEAA=</HashCode>
+      <FileName>Challenger.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KP_Staff.Position">
+    <Position X="1" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEAAAAAAAAgAAAAAAACAEAAAgAAAAAEAAAAA=</HashCode>
+      <FileName>Position.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KP_Staff.Premium">
+    <Position X="7.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAAAAAAAAAAAAAAACAAAAAAAAAAAGAAAAA=</HashCode>
+      <FileName>Premium.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KP_Staff.Salary">
+    <Position X="5.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAACAAAAAAAAAAAAACAAAAAAAAACAgAAAAA=</HashCode>
+      <FileName>Salary.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KP_Staff.Staff">
+    <Position X="9.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAACAIAwACAAAgEgAUEAAAgAAAACAgAAAAAkAAEAA=</HashCode>
+      <FileName>Staff.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KP_Staff.Actions.RegAndAuth">
+    <Position X="5.75" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIEAAAAAAAAAAAAAAAAAAAoAgEAAAAgAAACA=</HashCode>
+      <FileName>Actions\RegAndAuth.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
